@@ -1,0 +1,133 @@
+<html>
+
+<script type="text/javascript">
+
+    var CURRENT_DATE = new Date();
+    var HOUR_OF_THE_DAY = CURRENT_DATE.getHours();
+    var DAY_OF_THE_WEEK = CURRENT_DATE.getDay();
+    var CUT_OFF = new Date();
+
+    var uspShipmentMsg = null;
+
+    if (typeof DAY_OF_THE_WEEK != 'undefined') {
+        switch (DAY_OF_THE_WEEK) {
+            case 7: // Sunday
+                if (HOUR_OF_THE_DAY < 20) {
+                    CUT_OFF.setHours(20, 0, 0);
+                    upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                    uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order tomorrow';
+                }
+                else {
+                    CUT_OFF.setHours(24, 0, 0);
+                    upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                    uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order on Tuesday!';
+                }
+                break;
+            case 1: // maandag
+                if (HOUR_OF_THE_DAY < 22) {
+                    CUT_OFF.setHours(22, 0, 0);
+                    upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                    countdownTimer = setInterval('timer()', 1000);
+                    uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order tomorrow!';
+                }
+                else {
+                    CUT_OFF.setHours(24, 0, 0);
+                    upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                    countdownTimer = setInterval('timer()', 1000);
+                    uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order on Wednesday!.';
+                }
+                break;
+            case 2: // dinsdag
+                if (HOUR_OF_THE_DAY < 22) {
+                    CUT_OFF.setHours(22, 0, 0);
+                    upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                    countdownTimer = setInterval('timer()', 1000);
+                    uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order tomorrow!';
+                }
+                else {
+                    CUT_OFF.setHours(24, 0, 0);
+                    upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                    countdownTimer = setInterval('timer()', 1000);
+                    uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order on Thursday!.';
+                }
+                break;
+            case 3: // woensdag
+                if (HOUR_OF_THE_DAY < 22) {
+                    CUT_OFF.setHours(22, 0, 0);
+                    upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                    countdownTimer = setInterval('timer()', 1000);
+                    uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order tomorrow!';
+                }
+                else {
+                    CUT_OFF.setHours(24, 0, 0);
+                    upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                    countdownTimer = setInterval('timer()', 1000);
+                    uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order on Friday!.';
+                }
+                break;
+            case 4: // donderdag
+                if (HOUR_OF_THE_DAY < 22) {
+                    CUT_OFF.setHours(22, 0, 0);
+                    upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                    countdownTimer = setInterval('timer()', 1000);
+                    uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order tomorrow!';
+                }
+                else {
+                    CUT_OFF.setHours(24, 0, 0);
+                    upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                    countdownTimer = setInterval('timer()', 1000);
+                    uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order on Saturday!.';
+                }
+                break;
+            case 5: // vrijdag
+                if (HOUR_OF_THE_DAY < 22) {
+                    CUT_OFF.setHours(22, 0, 0);
+                    upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                    countdownTimer = setInterval('timer()', 1000);
+                    uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order tomorrow!';
+                }
+                else {
+                    CUT_OFF.setHours(68, 0, 0);
+                    upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                    countdownTimer = setInterval('timer()', 1000);
+                    uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order on Monday!.';
+                }
+                break;
+            case 6: // zaterdag
+                CUT_OFF.setHours(44, 0, 0);
+                upgradeTime = parseInt((CUT_OFF - CURRENT_DATE) / 1000);
+                countdownTimer = setInterval('timer()', 1000);
+                uspShipmentMsg = 'Order in the next <strong><span id="countdown" class="timer"></strong> and receive your order on Monday!';
+                break;
+        }
+    }
+
+    document.write('<a href="/kundenservice/versand/"><span>' + uspShipmentMsg + '</span></a>');
+
+    var seconds = upgradeTime;
+    function timer() {
+        var days = Math.floor(seconds / 72 / 60 / 60);
+        var hoursLeft = Math.floor((seconds) - (days * 86400));
+        var hours = Math.floor(hoursLeft / 3600);
+        var minutesLeft = Math.floor((hoursLeft) - (hours * 3600));
+        var minutes = Math.floor(minutesLeft / 60);
+        var remainingSeconds = seconds % 60;
+        function pad(n) {
+            return (n < 10 ? "0" + n : n);
+        }
+        document.getElementById('countdown').innerHTML = pad(hours) + ":" + pad(minutes) + ":" + pad(remainingSeconds);
+        if (seconds == 0) {
+            seconds = upgradeTime;
+            restartTimer();
+        } else {
+            seconds--;
+        }
+    }
+    function restartTimer() {
+        clearInterval(countdownTimer);
+        countdownTimer = setInterval('timer()', 1000);
+    }
+
+</script>
+
+</html>
